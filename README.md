@@ -1,5 +1,5 @@
 # domletters — count dominant letters
-<Your Name> and Bart Massey 2021
+Asante Grey-Johnson and Bart Massey 2021
 
 This repository contains a program that counts dominant
 letters in alphabetic words of an ASCII text read from
