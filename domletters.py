@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 import re
+import sys
 import argparse
 from collections import Counter
 #######################################################
@@ -29,10 +31,9 @@ class Analyzer(object):
             :return: input as string
             '''
             read_in = ''
-            with open(self.fname,'r') as fhdl:
-                read_in = fhdl.read().replace('\n',' ')
-                if DEBUG:
-                    print(f'[-D-] {read_in}')
+            read_in = self.fname.read().replace('\n',' ')
+            if DEBUG:
+               print(f'[-D-] {read_in}')
             return read_in
         print('[-i-] Processing...')
         lines = read_file().split()
@@ -56,14 +57,13 @@ class Analyzer(object):
 def parse_options():
     '''
         Function collects parses user ArgumentParser
-        -i input file path
-        -o output file path
-    :return:
+    :return: Namespace args
     '''
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', required=True, action='store')
-    parser.add_argument('-o', action='store')
-    parser.add_argument('-debug', required=False, action='store_true')
+    parser.add_argument('infile',
+                       default=sys.stdin,
+                       type=argparse.FileType('r'),
+                       nargs='?')
     args = parser.parse_args()
     return args
 
@@ -72,7 +72,7 @@ def main():
     print('[-i-] DomLetters Analyzer Started...')
     analyzer = Analyzer()
     options = parse_options()
-    analyzer.fname = options.i
+    analyzer.fname = options.infile
     analyzer.run()
 
 
