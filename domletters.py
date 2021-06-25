@@ -11,7 +11,6 @@ __author__='Asante Grey-Johnson'
 # of an ASCII text read from standard input, printing
 # the total count on standard output.
 #######################################################
-DEBUG = 1
 
 
 class Analyzer(object):
@@ -32,24 +31,16 @@ class Analyzer(object):
             '''
             read_in = ''
             read_in = self.fname.read().replace('\n',' ')
-            if DEBUG:
-               print(f'[-D-] {read_in}')
             return read_in
         print('[-i-] Processing...')
         lines = read_file().split()
         actual_words = [word.lower() for word in lines if bool(re.match(r'\s*([a-zA-Z]+$)', word))]
-        if DEBUG:
-            print(f'[-D-] Actual words: {actual_words}')
         total_cnt = 0
         for word in actual_words:
             cnt_dict = Counter()
             for ch in word:
                 cnt_dict[ch] += 1
-            # return key with max value
-            key = max(cnt_dict,key=cnt_dict.get)
-            if DEBUG:
-                print(f'[-D-] {cnt_dict}')
-            print(f'[-i-] word count: {key} = {cnt_dict[key]}')
+            key = max(cnt_dict,key=cnt_dict.get)   # get max value by key
             total_cnt += cnt_dict[key]
         print(f'[-i-] Total Count: {total_cnt}')
 
